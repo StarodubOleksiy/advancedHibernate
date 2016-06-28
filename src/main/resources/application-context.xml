@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+        default-autowire="byName">
+
+       <bean id="main" class="ua.goit.java.hibernate.App" init-method="init">
+              <property name="reInit" value ="true" />
+       </bean>
+
+
+       <bean id="app" class="ua.goit.java.hibernate.App"/>
+       <bean id="employeeController" class="ua.goit.java.hibernate.model.Controllers.EmployeeController"/>
+       <bean id="dishController" class="ua.goit.java.hibernate.model.Controllers.DishController"/>
+        <bean id="employeeDao" class="ua.goit.java.hibernate.model.hibernate.HEmployeeDao"/>
+       <bean id="dishDao" class="ua.goit.java.hibernate.model.hibernate.HDishDao"/>
+       <bean id="orderController" class="ua.goit.java.hibernate.model.Controllers.OrderController"/>
+       <bean id="orderDao" class="ua.goit.java.hibernate.model.hibernate.HOrderDao"/>
+       <bean id="storageController" class="ua.goit.java.hibernate.model.Controllers.StorageController"/>
+       <bean id="storageDao" class="ua.goit.java.hibernate.model.hibernate.HStorageDao"/>
+
+
+</beans>
