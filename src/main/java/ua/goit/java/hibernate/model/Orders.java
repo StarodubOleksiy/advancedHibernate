@@ -21,7 +21,7 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    private Employee waiter;
+    private Waiter waiter;
 
     @ManyToMany
     @JoinTable(
@@ -43,11 +43,11 @@ public class Orders {
     @Column(name = "state")
     private String state;
 
-    public Employee getWaiter() {
+    public Waiter getWaiter() {
         return waiter;
     }
 
-    public void setWaiter(Employee waiter) {
+    public void setWaiter(Waiter waiter) {
         this.waiter = waiter;
     }
 

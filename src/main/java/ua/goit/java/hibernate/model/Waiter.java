@@ -4,6 +4,8 @@ package ua.goit.java.hibernate.model;
 
 
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,10 +13,11 @@ import java.util.List;
  * Created by Администратор on 26.06.16.
  */
 @Entity
+//@MappedSuperclass
 public class Waiter extends  Employee {
 
-           @OneToMany()
-           @JoinColumn(name = "employee_id")
+   // @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+    @OneToMany(mappedBy = "waiter", fetch = FetchType.EAGER)
             private List<Orders> orders;
 
       public List<Orders> getOrders() {return orders; }

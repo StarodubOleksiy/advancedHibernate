@@ -83,6 +83,12 @@
     </dependency>
 
     <dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.2.1.Final</version>
+  </dependency>
+
+    <dependency>
       <groupId>org.aspectj</groupId>
       <artifactId>aspectjrt</artifactId>
       <version>1.8.9</version>

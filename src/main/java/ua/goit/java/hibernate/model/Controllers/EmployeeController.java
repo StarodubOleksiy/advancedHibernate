@@ -4,7 +4,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.goit.java.hibernate.model.Employee;
 import ua.goit.java.hibernate.model.EmployeeDao;
 import ua.goit.java.hibernate.model.Position;
-import ua.goit.java.hibernate.model.Waiter;
+//import ua.goit.java.hibernate.model.Waiter;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class EmployeeController {
     public void createEmployee() throws IOException
     {
      Set<Employee> allEmployees = new HashSet<>(employeeDao.findAll());
-        Waiter employee = new  Waiter();
+        Employee employee = new  Employee();
         System.out.println("Adding new employee to data base");
         BufferedReader br = new BufferedReader( new InputStreamReader(System.in) );
         System.out.println("Enter id of new employee:");
@@ -86,7 +86,7 @@ public class EmployeeController {
     @Transactional
     public void initEmployees()
     {
-        Waiter john = new Waiter();
+     /*   Waiter john = new Waiter();
         john.setName("John");
         john.setSurname("Smith");
         john.setPhoneNumber("555-55-55");
@@ -100,7 +100,7 @@ public class EmployeeController {
         mary.setPhoneNumber("666-66-66");
         mary.setPosition(Position.WAITER);
         mary.setSalary(25000.00F);
-        employeeDao.save(mary);
+        employeeDao.save(mary);*/
     }
 
 

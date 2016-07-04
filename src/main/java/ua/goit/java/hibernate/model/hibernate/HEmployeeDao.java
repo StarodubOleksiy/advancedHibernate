@@ -8,6 +8,7 @@ import ua.goit.java.hibernate.model.Employee;
 import ua.goit.java.hibernate.model.EmployeeDao;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import ua.goit.java.hibernate.model.Waiter;
 
 import java.util.List;
 
@@ -49,9 +50,9 @@ public class HEmployeeDao implements EmployeeDao {
 
     @Override
     @Transactional
-    public Employee findById(Long id) {
+    public Waiter findById(Long id) {
         Session session = sessionFactory.getCurrentSession();
-        return  (Employee) session.get(Employee.class, id);
+        return  (Waiter) session.get(Waiter.class, id);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

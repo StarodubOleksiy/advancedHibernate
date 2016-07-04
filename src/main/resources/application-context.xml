@@ -4,9 +4,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
         default-autowire="byName">
 
-       <bean id="main" class="ua.goit.java.hibernate.App" init-method="init">
-              <property name="reInit" value ="true" />
-       </bean>
 
 
        <bean id="app" class="ua.goit.java.hibernate.App"/>

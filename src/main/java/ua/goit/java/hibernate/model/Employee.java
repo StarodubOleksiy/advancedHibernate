@@ -15,6 +15,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "EMPLOYEE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 public class Employee {
 
     @Id
