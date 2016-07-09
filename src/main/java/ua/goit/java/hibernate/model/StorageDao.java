@@ -1,5 +1,6 @@
 package ua.goit.java.hibernate.model;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ public interface StorageDao {
     public Storage findById(Long id);
     List<Storage> printEnded();
     void changeNumerosity(Long id, int numerosity);
+    public void decreaseNumerosity(Storage ingradients, int numerosity) throws IOException;
 
 
 }

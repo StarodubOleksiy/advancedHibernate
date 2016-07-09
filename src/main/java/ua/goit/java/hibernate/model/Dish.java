@@ -3,6 +3,7 @@ package ua.goit.java.hibernate.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * Created by Администратор on 09.06.16.
@@ -26,6 +27,17 @@ public class Dish {
     private float price;
     @Column(name = "weight")
     private float weight;
+
+
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "dish_to_ingradient",
+            joinColumns = @JoinColumn(name = "dish_id"),
+            inverseJoinColumns = @JoinColumn(name = "ingradient_id")
+    )
+
+    private List<Storage> ingradients;
 
     public long getId() {
         return id;
@@ -67,6 +79,15 @@ public class Dish {
         this.weight = weight;
     }
 
+    public void setIngradients(List<Storage> ingradients) {
+        this.ingradients = ingradients;
+    }
+
+    public List<Storage> getIngradients() {
+        return ingradients;
+    }
+
+
     @Override
     public String toString() {
         return "Dish{" +
@@ -75,6 +96,7 @@ public class Dish {
                 ", dish_category='" + dishCategory + '\'' +
                 ", price=" +price +
                 ",weight=" + weight +
+                ",ingradients=" + ingradients +
                  '}'; }
 
     @Override

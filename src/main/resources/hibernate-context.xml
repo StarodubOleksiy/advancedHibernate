@@ -29,14 +29,16 @@ http://www.springframework.org/schema/tx http://www.springframework.org/schema/t
                             hibernate.dialect=org.hibernate.dialect.PostgreSQL9Dialect
                      </value>
               </property>
-
-
-       </bean>
+            </bean>
 
        <bean id="txManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
               <property name="sessionFactory" ref="sessionFactory"/>
 
+
        </bean>
+
+
+
 
 
 

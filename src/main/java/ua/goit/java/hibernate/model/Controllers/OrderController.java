@@ -22,6 +22,17 @@ public class OrderController {
     private OrderDao orderDao;
     private EmployeeDao employeeDao;
     private DishDao dishDao;
+    private CookedDishController cookedDishController;
+
+    public CookedDishController getCookedDishController() {
+        return cookedDishController;
+    }
+
+    public void setCookedDishController(CookedDishController cookedDishController) {
+        this.cookedDishController = cookedDishController;
+    }
+
+
 
     public void setEmployeeDao(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
@@ -38,20 +49,22 @@ public class OrderController {
         BufferedReader br = new BufferedReader( new InputStreamReader(System.in) );
         System.out.println("Enter id of employee who have to make this  order:");
         long waiterId = Long.parseLong(br.readLine());
-        order.setWaiter(employeeDao.findById(waiterId));
+        order.setWaiter((Waiter)employeeDao.findById(waiterId));
+        order.setOrderDate(new Date().toString());
         List<String> dishes = new ArrayList<>();
+        System.out.println("Enter number of the table to this  order:");
+        int tableNumber = Integer.parseInt(br.readLine());
+        order.setTableNumber(tableNumber);
+        order.setState("open");
         String dish = new String();
         do {
         System.out.println("Enter the name of dish or exit  if you have  entered all dishes:");
         dish = br.readLine().toLowerCase();
+   //         cookedDishController.createCookedDish(dish,order,order.getOrderDate());
         dishes.add(dish);
         } while(!dish.equals("exit"));
         order.setDishes(createDishes(dishes));
-        System.out.println("Enter number of the table to this  order:");
-        int tableNumber = Integer.parseInt(br.readLine());
-        order.setTableNumber(tableNumber);
-        order.setOrderDate(new Date().toString());
-        order.setState("open");
+
        orderDao.save(order);
         System.out.println("A new order was created successfully!!!:");
     }
@@ -144,6 +157,25 @@ public class OrderController {
         long id = Long.parseLong(br.readLine());
          orderDao.remove(id);
         System.out.println("Order was deleted successfully!");
+    }
+
+    @Transactional
+    public void saveOrderWithIceCream(){
+        List<Dish> dishes = new ArrayList<>();
+        Dish iceCream = new Dish();
+        iceCream.setName("Ice Cream");
+        iceCream.setDishCategory(DishCategory.DESSERT);
+        iceCream.setPrice(3.0F);
+        iceCream.setWeight(100.0F);
+        dishes.add(iceCream);
+
+        Orders order = new Orders();
+        order.setWaiter((Waiter)employeeDao.findByName("Mary"));
+                order.setDishes(dishes);
+        order.setTableNumber(4);
+        order.setOrderDate(new Date().toString());
+        order.setState("open");
+        orderDao.save(order);
     }
 
 

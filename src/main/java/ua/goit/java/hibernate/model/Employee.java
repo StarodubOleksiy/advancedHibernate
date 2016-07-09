@@ -3,6 +3,7 @@ package ua.goit.java.hibernate.model;
 
 
 
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,7 +16,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "EMPLOYEE")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-
 public class Employee {
 
     @Id
@@ -35,29 +35,27 @@ public class Employee {
     @Column(name = "salary")
     private Float salary;
 
-    @Id
-    @Column(name = "id")
+
     public Long getId() {
         return id;
     }
-    @Column(name = "name")
+
     public String getName() {
         return name;
     }
-    @Column(name = "surname")
+
     public String getSurname() {
         return surname;
     }
-    @Column(name = "phone_number")
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
-    @Column(name = "position")
-    @Enumerated(EnumType.STRING)
+
     public Position getPosition() {
         return position;
     }
-    @Column(name = "salary")
+
     public Float getSalary() {
         return salary;
     }

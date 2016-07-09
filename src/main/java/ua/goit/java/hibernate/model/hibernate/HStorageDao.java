@@ -8,6 +8,7 @@ import ua.goit.java.hibernate.model.Orders;
 import ua.goit.java.hibernate.model.Storage;
 import ua.goit.java.hibernate.model.StorageDao;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -65,6 +66,15 @@ public class HStorageDao implements StorageDao {
         storage.setNumerosity(numerosity);
         sessionFactory.getCurrentSession().update(storage);
      }
+
+
+    @Override
+    public void decreaseNumerosity(Storage ingradients, int newNumerosity) throws IOException{
+        if(ingradients.getNumerosity()<0 ||ingradients.getNumerosity()-newNumerosity<0 )
+            throw new IOException("Ingradient was ended!!!");
+        ingradients.setNumerosity(ingradients.getNumerosity()-newNumerosity);
+        sessionFactory.getCurrentSession().update(ingradients);
+    }
 
 
 

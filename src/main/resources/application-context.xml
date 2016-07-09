@@ -4,9 +4,12 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
         default-autowire="byName">
 
+       <bean id="app" class="ua.goit.java.hibernate.App" init-method="init">
+              <property name="reInit" value ="false"/>
+
+       </bean>
 
 
-       <bean id="app" class="ua.goit.java.hibernate.App"/>
        <bean id="employeeController" class="ua.goit.java.hibernate.model.Controllers.EmployeeController"/>
        <bean id="dishController" class="ua.goit.java.hibernate.model.Controllers.DishController"/>
         <bean id="employeeDao" class="ua.goit.java.hibernate.model.hibernate.HEmployeeDao"/>
@@ -15,6 +18,9 @@
        <bean id="orderDao" class="ua.goit.java.hibernate.model.hibernate.HOrderDao"/>
        <bean id="storageController" class="ua.goit.java.hibernate.model.Controllers.StorageController"/>
        <bean id="storageDao" class="ua.goit.java.hibernate.model.hibernate.HStorageDao"/>
+       <bean id="cookedDishController" class="ua.goit.java.hibernate.model.Controllers.CookedDishController"/>
+       <bean id="cookedDishDao" class="ua.goit.java.hibernate.model.hibernate.HCookedDishDao"/>
+
 
 
 </beans>

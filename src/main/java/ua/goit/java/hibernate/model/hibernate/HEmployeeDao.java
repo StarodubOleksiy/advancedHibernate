@@ -3,12 +3,9 @@ package ua.goit.java.hibernate.model.hibernate;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate3.SessionFactoryUtils;
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.hibernate.model.Dish;
-import ua.goit.java.hibernate.model.Employee;
-import ua.goit.java.hibernate.model.EmployeeDao;
+import ua.goit.java.hibernate.model.*;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import ua.goit.java.hibernate.model.Waiter;
 
 import java.util.List;
 
@@ -35,7 +32,21 @@ public class HEmployeeDao implements EmployeeDao {
     @Transactional
     public List<Employee> findAll() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery(" select e from Employee e").list();
+        return session.createQuery(" select e from Employee e ").list();
+    }
+
+    @Override
+    @Transactional
+    public List<Employee> findAllWaiters() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery(" select e from Employee e  where position = 'WAITER'").list();
+    }
+
+    @Override
+    @Transactional
+    public List<Employee> findAllCooks() {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery(" select e from Employee e  where position = 'COOK'").list();
     }
 
     @Override
@@ -50,9 +61,9 @@ public class HEmployeeDao implements EmployeeDao {
 
     @Override
     @Transactional
-    public Waiter findById(Long id) {
+    public Employee findById(Long id){
         Session session = sessionFactory.getCurrentSession();
-        return  (Waiter) session.get(Waiter.class, id);
+        return   session.get(Employee.class, id);
     }
 
     public void setSessionFactory(SessionFactory sessionFactory) {

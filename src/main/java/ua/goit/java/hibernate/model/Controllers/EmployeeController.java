@@ -1,10 +1,8 @@
 package ua.goit.java.hibernate.model.Controllers;
 
 import org.springframework.transaction.annotation.Transactional;
-import ua.goit.java.hibernate.model.Employee;
-import ua.goit.java.hibernate.model.EmployeeDao;
-import ua.goit.java.hibernate.model.Position;
-//import ua.goit.java.hibernate.model.Waiter;
+import ua.goit.java.hibernate.model.*;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,9 +18,22 @@ public class EmployeeController {
     public void createEmployee() throws IOException
     {
      Set<Employee> allEmployees = new HashSet<>(employeeDao.findAll());
-        Employee employee = new  Employee();
+        Employee employee;
         System.out.println("Adding new employee to data base");
         BufferedReader br = new BufferedReader( new InputStreamReader(System.in) );
+        System.out.println("Enter position of new employee:");
+        String position =  br.readLine().toLowerCase();
+        if(position.equals("waiter")) {
+            employee  = new Waiter();
+            employee.setPosition(Position.WAITER);
+        }
+        else if(position.equals("cook")) {
+            employee  = new Cook();
+            employee.setPosition(Position.COOK);
+        }
+      /*  else if(position.equals("manager"))
+            employee.setPosition(Position.MANAGER);*/
+        else throw new IOException("You enter invalid position");
         System.out.println("Enter id of new employee:");
         long id = Long.parseLong(br.readLine());
         employee.setId(id);
@@ -32,15 +43,7 @@ public class EmployeeController {
         System.out.println("Enter surname of new employee:");
         String surName =  br.readLine();
         employee.setSurname(surName);
-        System.out.println("Enter position of new employee:");
-        String position =  br.readLine().toLowerCase();
-        if(position.equals("waiter"))
-        employee.setPosition(Position.WAITER);
-        else if(position.equals("cook"))
-        employee.setPosition(Position.COOK);
-        else if(position.equals("manager"))
-        employee.setPosition(Position.MANAGER);
-        else throw new IOException("You enter invalid position");
+
         System.out.println("Enter phone number of new employee:");
         String phone =  br.readLine();
         employee.setPhoneNumber(phone);
@@ -66,7 +69,7 @@ public class EmployeeController {
         this.employeeDao = employeeDao;
     }
 
-    @Transactional
+   @Transactional
     public List<Employee> getAllEmployees()
 {
   return employeeDao.findAll();
@@ -86,7 +89,9 @@ public class EmployeeController {
     @Transactional
     public void initEmployees()
     {
-     /*   Waiter john = new Waiter();
+        System.out.println("Init employees.");
+
+      Waiter john = new Waiter();
         john.setName("John");
         john.setSurname("Smith");
         john.setPhoneNumber("555-55-55");
@@ -100,8 +105,37 @@ public class EmployeeController {
         mary.setPhoneNumber("666-66-66");
         mary.setPosition(Position.WAITER);
         mary.setSalary(25000.00F);
-        employeeDao.save(mary);*/
+        employeeDao.save(mary);
+
+        Cook james = new Cook();
+        james.setName("James");
+        james.setSurname("Bond");
+        james.setPhoneNumber("777-77-77");
+        james.setPosition(Position.COOK);
+        james.setSalary(35000.00F);
+        employeeDao.save(james);
     }
+
+
+    @Transactional
+    public void printWaiters()
+    {
+        employeeDao.findAllWaiters().forEach(System.out::println);
+    }
+
+    @Transactional
+    public void printCooks()
+    {
+        employeeDao.findAllCooks().forEach(System.out::println);
+    }
+
+    @Transactional
+    public void printEmployee(long id)
+    {
+       System.out.println(employeeDao.load(id));
+       System.out.println(employeeDao.load(id));
+    }
+
 
 
 }

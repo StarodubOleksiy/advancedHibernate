@@ -2,10 +2,7 @@ package ua.goit.java.hibernate;
         import org.springframework.beans.factory.BeanCreationException;
         import org.springframework.context.ApplicationContext;
         import org.springframework.context.support.ClassPathXmlApplicationContext;
-        import ua.goit.java.hibernate.model.Controllers.DishController;
-        import ua.goit.java.hibernate.model.Controllers.EmployeeController;
-        import ua.goit.java.hibernate.model.Controllers.OrderController;
-        import ua.goit.java.hibernate.model.Controllers.StorageController;
+        import ua.goit.java.hibernate.model.Controllers.*;
 
         import java.io.BufferedReader;
         import java.io.IOException;
@@ -21,18 +18,19 @@ public class App
     private DishController dishController;
     private OrderController orderController;
     private StorageController storageController;
+    private CookedDishController cookedDishController;
     private boolean reInit;
 
-    public void setStorageController(StorageController storageController) {
-        this.storageController = storageController;
-    }
+
 
     public void setReInit(boolean reInit) {
         this.reInit = reInit;
     }
 
 
-
+    public void setStorageController(StorageController storageController) {
+        this.storageController = storageController;
+    }
 
     public void setOrderController(OrderController orderController) {
         this.orderController = orderController;
@@ -45,6 +43,11 @@ public class App
     public void setDishController(DishController dishController) {
         this.dishController = dishController;
     }
+
+    public void setCookedDishController(CookedDishController cookedDishController) {
+        this.cookedDishController = cookedDishController;
+    }
+
 
 
     public void init() {
@@ -62,31 +65,41 @@ public class App
         try {
             ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml", "hibernate-context.xml");
             App app = context.getBean(App.class);
-            BufferedReader br = new BufferedReader( new InputStreamReader(System.in) );
-            while(true)
+               BufferedReader br = new BufferedReader( new InputStreamReader(System.in) );
+           // app.cookedDishController.printIngradient();
+             while(true)
             {
                 System.out.println("Enter the word to table you want to work:");
                 System.out.println("Employees-If you want to work with employees:");
                 System.out.println("Dishes-If you want to work with dishes:");
                 System.out.println("Orders-If you want to work with booking:");
                 System.out.println("Storage-If you want to work with storage:");
+                System.out.println("CookedDishes-If you want to work with CookedDishes:");
                 String command = br.readLine().toLowerCase();
+
                 if(command.equals("employees"))
                 {
                     while (true) {
                         System.out.println("Enter the word what are you going to do:");
                         System.out.println("Add - to add new employee into data base:");
                         System.out.println("Delete -  to delete new employee into data base:");
-                        System.out.println("View -  to view all employees into data base:");
+                        System.out.println("view -  to view all employees into data base:"); //Fetch
+                        System.out.println("viewwaiters -  to view all waiters into data base:");
+                        System.out.println("viewcooks -  to view all waiters into data base:");
                         System.out.println("Find -  to find employee by name:");
                         String newCommand = br.readLine().toLowerCase();
                         if (newCommand.equals("add")) {
                             app.employeeController.createEmployee();
                         } else if (newCommand.equals("delete")) {
                             app.employeeController.deleteEmployees();
+                        } else if (newCommand.equals("viewwaiters")) {
+                            app.employeeController.printWaiters();
+                        } else if (newCommand.equals("viewcooks")) {
+                            app.employeeController.printCooks();
                         } else if (newCommand.equals("view")) {
                             app.employeeController.getAllEmployees().forEach(System.out::println);
-                        } else if (newCommand.equals("find")) {
+                        }
+                        else if (newCommand.equals("find")) {
                             System.out.println(app.employeeController.getEmployeesByName());
                         } else break;
                     }
@@ -162,6 +175,19 @@ public class App
                             app.storageController.changeNumerosity();
                         }  else if (newCommand.equals("ended")) {
                             app.storageController.getEndedIngradients().forEach(System.out::println);
+                        } else break;
+
+                    }
+                }else if(command.equals("cookeddishes"))
+                {
+                    while (true) {
+                        System.out.println("Add -  to add new cooked dish into data base:");
+                        System.out.println("View -  to see cooked dishes into data base:");
+                        String newCommand = br.readLine().toLowerCase();
+                        if (newCommand.equals("add")) {
+                            app.cookedDishController.createCookedDish();
+                        }  else if (newCommand.equals("view")) {
+                            app.cookedDishController.getAllCookedDishes().forEach(System.out::println);
                         } else break;
 
                     }

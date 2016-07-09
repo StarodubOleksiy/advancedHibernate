@@ -23,7 +23,7 @@ public class Orders {
     @JoinColumn(name = "employee_id")
     private Waiter waiter;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "dish_to_order",
             joinColumns = @JoinColumn(name = "order_id"),
@@ -96,7 +96,7 @@ public class Orders {
     public String toString() {
         return "Order{" +
                 "ID =" + id +
-                " waiter=" + waiter +
+              //  " waiter=" + waiter + Тут вилітає StackOverFlowException
                 ", dishes=" + dishes +
                 ", tableNumber=" + tableNumber +
                 ", orderDate='" + orderDate + '\'' +

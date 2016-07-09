@@ -7,6 +7,7 @@ import ua.goit.java.hibernate.model.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -20,7 +21,12 @@ public class DishController {
         this.dishDao = dishDao;
     }
 
+    public void setStorageDao(StorageDao storageDao) {
+        this.storageDao = storageDao;
+    }
+
     private DishDao dishDao;
+    private StorageDao storageDao;
 
     @Transactional
     public void createDish() throws IOException {
@@ -39,6 +45,8 @@ public class DishController {
             dish.setDishCategory(DishCategory.SECONDDISH);
         else if(position.equals("third"))
             dish.setDishCategory(DishCategory.THIRDDISH);
+        else if(position.equals("dessert"))
+            dish.setDishCategory(DishCategory.DESSERT);
         else throw new IOException("You enter invalid category");
         System.out.println("Enter price of new dish:");
         float price =  Float.parseFloat(br.readLine());
@@ -46,10 +54,26 @@ public class DishController {
         System.out.println("Enter weight of new dish:");
         float weight =  Float.parseFloat(br.readLine());
         dish.setWeight(weight);
+        List<String> allIngradients = new ArrayList<>();
+        String ingradient = new String();
+        do {
+            System.out.println("Enter the name of ingradient or exit  if you have  entered all dishes:");
+            ingradient = br.readLine().toLowerCase();
+            allIngradients.add(ingradient);
+        } while(!ingradient.equals("exit"));
+        dish.setIngradients(createIngradients(allIngradients));
         if (!allDishes.contains(dish)) {
             dishDao.save(dish);
             System.out.println("A new dish was saved to data-base successfully!!!");
         }
+    }
+
+    private List<Storage> createIngradients(List<String> ingradients) {
+        List<Storage> result = new ArrayList<>();
+        for (String dishName: ingradients) {
+            result.add(storageDao.findByName(dishName));
+        }
+        return result;
     }
 
     @Transactional
