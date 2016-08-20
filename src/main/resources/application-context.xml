@@ -20,6 +20,8 @@
        <bean id="storageDao" class="ua.goit.java.hibernate.model.hibernate.HStorageDao"/>
        <bean id="cookedDishController" class="ua.goit.java.hibernate.model.Controllers.CookedDishController"/>
        <bean id="cookedDishDao" class="ua.goit.java.hibernate.model.hibernate.HCookedDishDao"/>
+       <bean id="menuController" class="ua.goit.java.hibernate.model.Controllers.MenuController"/>
+       <bean id="menuDao" class="ua.goit.java.hibernate.model.hibernate.HMenuDao"/>
 
 
 

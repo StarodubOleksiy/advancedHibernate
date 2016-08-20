@@ -19,6 +19,10 @@ public class App
     private OrderController orderController;
     private StorageController storageController;
     private CookedDishController cookedDishController;
+    private MenuController menuController;
+
+
+
     private boolean reInit;
 
 
@@ -48,6 +52,10 @@ public class App
         this.cookedDishController = cookedDishController;
     }
 
+    public void setMenuController(MenuController menuController) {
+        this.menuController = menuController;
+    }
+
 
 
     public void init() {
@@ -75,6 +83,7 @@ public class App
                 System.out.println("Orders-If you want to work with booking:");
                 System.out.println("Storage-If you want to work with storage:");
                 System.out.println("CookedDishes-If you want to work with CookedDishes:");
+                System.out.println("Menu-If you want to work with Menu:");
                 String command = br.readLine().toLowerCase();
 
                 if(command.equals("employees"))
@@ -109,7 +118,7 @@ public class App
                     while (true) {
                         System.out.println("Enter the word what are you going to do:");
                         System.out.println("Add - to add new dish into data base:");
-                        System.out.println("Delete -  to delete new dish into data base:");
+                        System.out.println("Delete -  to delete dish into data base:");
                         System.out.println("View -  to view all dishes into data base:");
                         System.out.println("Find -  to find dish by name:");
                         String newCommand = br.readLine().toLowerCase();
@@ -190,6 +199,32 @@ public class App
                             app.cookedDishController.getAllCookedDishes().forEach(System.out::println);
                         } else break;
 
+                    }
+                } else if(command.equals("menu"))
+                {
+                    while (true) {
+                        System.out.println("Enter the word what are you going to do:");
+                        System.out.println("Add - to add new menu into data base:");
+                        System.out.println("Delete -  to delete menu into data base:");
+                        System.out.println("View -  to view all menu into data base:");
+                        System.out.println("Find -  to find menu by name:");
+                        System.out.println("AddDish - to add new dish into menu:");
+                        System.out.println("RemoveDish - to remove dish from menu:");
+                        String newCommand = br.readLine().toLowerCase();
+                        if (newCommand.equals("add")) {
+                            app.menuController.createMenu();
+                        } else if (newCommand.equals("delete")) {
+                            app.menuController.deleteMenuById();
+                        } else if (newCommand.equals("view")) {
+                            app.menuController.getAllMenus().forEach(System.out::println);
+                        } else if (newCommand.equals("find")) {
+                            System.out.println(app.menuController.getMenuByName());
+                        } else if (newCommand.equals("adddish")) {
+                            app.menuController.addDishesToMenu();
+                        } else if (newCommand.equals("removedish")) {
+                            app.menuController.removeDishesFromMenu();
+                        }
+                        else break;
                     }
                 }
 
